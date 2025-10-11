@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Story Book</title>
+    <style>
+/* CSS Styles embedded */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.app-title {
+    font-size: 3em;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+.author-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+.author-input {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.author-input:focus {
+    outline: none;
+    transform: scale(1.05);
+    background: #fff;
+}
+
+.story-selector {
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.story-selector h2 {
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.topic-input-section {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.instructions {
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.input-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.topic-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1em;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.topic-input:focus {
+    outline: none;
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.generate-btn {
+    padding: 15px 35px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.divider {
+    margin: 40px 0;
+    position: relative;
+    text-align: center;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.divider span {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.story-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.story-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 40px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    animation: cardFloat 3s ease-in-out infinite;
+}
+
+.story-card:nth-child(1) {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+}
+
+.story-card:nth-child(2) {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.story-card:nth-child(3) {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.story-card:nth-child(4) {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    animation-delay: 1s;
+}
+
+.story-card:nth-child(5) {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    animation-delay: 1.5s;
+}
+
+.story-card:nth-child(6) {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    animation-delay: 2s;
+}
+
+@keyframes cardFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.story-card:hover {
+    transform: scale(1.08) translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+    animation: rotate 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+}
+
+.story-card h3 {
+    color: #fff;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.story-card p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1em;
+}
+
+.book-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    animation: bookAppear 0.8s ease-out;
+}
+
+@keyframes bookAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.book {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: 500px;
+    width: 100%;
+    max-width: 900px;
+    perspective: 2000px;
+    position: relative;
+}
+
+.page {
+    flex: 1;
+    padding: 40px;
+    position: relative;
+    transition: all 0.6s ease;
+}
+
+.left-page {
+    background: linear-gradient(to right, #ffeaa7, #fff);
+    border-right: 2px solid #ddd;
+}
+
+.right-page {
+    background: linear-gradient(to left, #ffeaa7, #fff);
+}
+
+.page.flip-transition {
+    animation: pageTransition 0.6s ease-in-out;
+}
+
+@keyframes pageTransition {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.98) translateY(10px);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.99) translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.page-content {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+}
+
+.page-content h2 {
+    color: #667eea;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    animation: colorShift 3s ease-in-out infinite;
+}
+
+@keyframes colorShift {
+    0%, 100% {
+        color: #667eea;
+    }
+    50% {
+        color: #f5576c;
+    }
+}
+
+.page-content .author-credit {
+    font-style: italic;
+    color: #764ba2;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.9em;
+    color: #999;
+}
+
+.left-page .page-number {
+    left: 20px;
+}
+
+.right-page .page-number {
+    right: 20px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-btn {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-size: 1.2em;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+.back-btn {
+    padding: 12px 25px;
+    font-size: 1em;
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .app-title {
+        font-size: 2em;
+    }
+
+    .book {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .left-page {
+        border-right: none;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .page {
+        padding: 20px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+.highlight {
+    background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px rgba(240, 147, 251, 0.3); }
+    to { text-shadow: 0 0 15px rgba(245, 87, 108, 0.6); }
+}
+
+.emphasis {
+    font-style: italic;
+    color: #764ba2;
+    font-weight: 500;
+    animation: subtlePulse 3s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.02); opacity: 0.95; }
+}
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">📚 Story Book Adventures</h1>
+            <div class="author-section">
+                <label for="author-name">Author: </label>
+                <input type="text" id="author-name" class="author-input" value="Alex Johnson" placeholder="Enter your name">
+            </div>
+        </header>
+
+        <div class="story-selector">
+            <h2>Create Your Own Story!</h2>
+            <div class="topic-input-section">
+                <p class="instructions">Enter any topic and we'll generate an amazing story for you!</p>
+                <div class="input-group">
+                    <input type="text" id="topic-input" class="topic-input" placeholder="e.g., Time Travel, Dragons, Artificial Intelligence...">
+                    <button class="generate-btn" id="generateBtn">✨ Generate Story</button>
+                </div>
+            </div>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <h3 style="color: #fff; margin-top: 20px;">Choose a Pre-Made Story:</h3>
+            <div class="story-cards">
+                <div class="story-card" data-story="golden">
+                    <div class="card-icon">👑</div>
+                    <h3>The Golden Kingdom</h3>
+                    <p>The Midas Touch tale</p>
+                </div>
+                <div class="story-card" data-story="lion">
+                    <div class="card-icon">🦁</div>
+                    <h3>The Brave Little Mouse</h3>
+                    <p>Lion and Mouse fable</p>
+                </div>
+                <div class="story-card" data-story="fox">
+                    <div class="card-icon">🦊</div>
+                    <h3>The Sour Grapes</h3>
+                    <p>Fox and Grapes story</p>
+                </div>
+                <div class="story-card" data-story="mystery">
+                    <div class="card-icon">🔍</div>
+                    <h3>The Vanishing Algorithm</h3>
+                    <p>A tech mystery</p>
+                </div>
+                <div class="story-card" data-story="adventure">
+                    <div class="card-icon">🚀</div>
+                    <h3>Mars Colony 2157</h3>
+                    <p>A space adventure</p>
+                </div>
+                <div class="story-card" data-story="comedy">
+                    <div class="card-icon">😂</div>
+                    <h3>The Great Exam Heist</h3>
+                    <p>A hilarious comedy</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-container" id="bookContainer" style="display: none;">
+            <div class="book">
+                <div class="page left-page" id="leftPage">
+                    <div class="page-content"></div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="page right-page" id="rightPage">
+                    <div class="page-content"></div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="nav-btn" id="prevBtn">← Previous</button>
+                <span class="page-indicator" id="pageIndicator"></span>
+                <button class="nav-btn" id="nextBtn">Next →</button>
+            </div>
+            <button class="back-btn" id="backBtn">← Back to Stories</button>
+        </div>
+    </div>
+
+    <script>
+// Debug logging
+console.log("=== STORY BOOK DEBUG ===");
+console.log("Script loaded at:", new Date().toISOString());
+console.log("DOM ready state:", document.readyState);
+
+// App state
+let currentStory = null;
+let currentPageIndex = 0;
+let authorName = "Alex Johnson";
+
+console.log("Variables initialized");
+
+// Check if elements exist before adding listeners
+function checkElements() {
+    const elements = [
+        'generateBtn',
+        'prevBtn',
+        'nextBtn',
+        'backBtn',
+        'author-name',
+        'topic-input',
+        'bookContainer',
+        'leftPage',
+        'rightPage',
+        'pageIndicator'
+    ];
+
+    console.log("=== Element Check ===");
+    elements.forEach(id => {
+        const el = document.getElementById(id);
+        console.log(`${id}: ${el ? 'FOUND' : 'NOT FOUND'}`);
+    });
+
+    const cards = document.querySelectorAll('.story-card');
+    console.log(`Story cards found: ${cards.length}`);
+}
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("=== DOMContentLoaded fired ===");
+    checkElements();
+    initializeApp();
+});
+
+function initializeApp() {
+    console.log("=== initializeApp called ===");
+    // Get author name
+    const authorInput = document.getElementById('author-name');
+    authorName = authorInput.value || "Anonymous";
+
+    // Update author name when changed
+    authorInput.addEventListener('input', function() {
+        authorName = this.value || "Anonymous";
+    });
+
+    // Generate story button
+    document.getElementById('generateBtn').addEventListener('click', function() {
+        const topicInput = document.getElementById('topic-input');
+        const topic = topicInput.value.trim();
+
+        if (!topic) {
+            alert('Please enter a topic for your story! 🖊️');
+            return;
+        }
+
+        currentStory = generateStory(topic, authorName);
+        currentPageIndex = 0;
+        showStory();
+    });
+
+    // Story card clicks
+    document.querySelectorAll('.story-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const storyType = this.dataset.story;
+
+            if (storyType === 'golden') {
+                currentStory = getGoldenKingdomStory(authorName);
+            } else if (storyType === 'lion') {
+                currentStory = getLionMouseFable(authorName);
+            } else if (storyType === 'fox') {
+                currentStory = getSourGrapesFable(authorName);
+            } else if (storyType === 'mystery') {
+                currentStory = getVanishingAlgorithmStory(authorName);
+            } else if (storyType === 'adventure') {
+                currentStory = getMarsColonyStory(authorName);
+            } else if (storyType === 'comedy') {
+                currentStory = getComedyStory(authorName);
+            }
+
+            currentPageIndex = 0;
+            showStory();
+        });
+    });
+
+    // Navigation controls
+    document.getElementById('prevBtn').addEventListener('click', showPreviousPage);
+    document.getElementById('nextBtn').addEventListener('click', showNextPage);
+    document.getElementById('backBtn').addEventListener('click', showStorySelector);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const bookContainer = document.getElementById('bookContainer');
+
+        if (bookContainer.style.display !== 'none') {
+            if (e.key === 'ArrowLeft') {
+                showPreviousPage();
+            } else if (e.key === 'ArrowRight') {
+                showNextPage();
+            } else if (e.key === 'Escape') {
+                showStorySelector();
+            }
+        }
+    });
+}
+
+// Navigation functions
+function showStory() {
+    if (!currentStory) return;
+
+    document.querySelector('.story-selector').style.display = 'none';
+    document.getElementById('bookContainer').style.display = 'block';
+    showCurrentPage();
+}
+
+function showStorySelector() {
+    document.querySelector('.story-selector').style.display = 'block';
+    document.getElementById('bookContainer').style.display = 'none';
+    currentStory = null;
+    currentPageIndex = 0;
+}
+
+function showCurrentPage() {
+    if (!currentStory || !currentStory.pages[currentPageIndex]) return;
+
+    const page = currentStory.pages[currentPageIndex];
+    const leftPage = document.getElementById('leftPage');
+    const rightPage = document.getElementById('rightPage');
+
+    // Add transition class
+    leftPage.classList.add('page');
+    rightPage.classList.add('page');
+
+    // Set page numbers (pages are 2 pages per index)
+    const pageNumber = (currentPageIndex * 2) + 1;
+
+    leftPage.innerHTML = `
+        <div class="page-content">${page.left}</div>
+        <div class="page-number">${pageNumber}</div>
+    `;
+
+    rightPage.innerHTML = `
+        <div class="page-content">${page.right}</div>
+        <div class="page-number">${pageNumber + 1}</div>
+    `;
+
+    // Update page indicator
+    const totalPages = currentStory.pages.length * 2;
+    const currentPage = (currentPageIndex + 1) * 2;
+    document.getElementById('pageIndicator').textContent = `${Math.min(currentPage, totalPages)} / ${totalPages}`;
+
+    // Update navigation buttons
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    prevBtn.disabled = currentPageIndex === 0;
+    nextBtn.disabled = currentPageIndex === currentStory.pages.length - 1;
+
+    // Remove and re-add page transition class for animation
+    setTimeout(() => {
+        leftPage.classList.add('flip-transition');
+        rightPage.classList.add('flip-transition');
+    }, 50);
+}
+
+function showNextPage() {
+    if (currentStory && currentPageIndex < currentStory.pages.length - 1) {
+        currentPageIndex++;
+        showCurrentPage();
+    }
+}
+
+function showPreviousPage() {
+    if (currentStory && currentPageIndex > 0) {
+        currentPageIndex--;
+        showCurrentPage();
+    }
+}
+
+// Story generator that creates stories based on user input topic
+function generateStory(topic, authorName) {
+    const storyTemplates = [
+        generateMysteryStory(topic, authorName),
+        generateAdventureStory(topic, authorName),
+        generateComedyStory(topic, authorName)
+    ];
+
+    // Return a random template filled with the topic
+    return storyTemplates[Math.floor(Math.random() * storyTemplates.length)];
+}
+
+function generateMysteryStory(topic, authorName) {
+    return {
+        title: `The Mystery of ${topic}`,
+        pages: [
+            {
+                left: `<h2>The Mystery of ${topic}</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>It began on an ordinary Tuesday when Detective Maya received an anonymous message about ${topic}. She knew this would be her most challenging case yet.</p>
+                <p>Following the cryptic clues, Maya discovered that ${topic} was connected to something much larger than she could have imagined.</p>`,
+                right: `<p>The mystery deepened as Maya uncovered ancient artifacts and secret messages. Each clue led her closer to the truth about ${topic}, but also put her in greater danger.</p>
+                <p>What secrets did ${topic} hold? And who was determined to keep them hidden?</p>`
+            },
+            {
+                left: `<p>Maya found an ancient laboratory filled with experimental technology. The walls were covered with equations and diagrams related to ${topic}.</p>
+                <p>A holographic message activated, revealing that ${topic} had the power to change humanity forever. But should this knowledge be revealed?</p>`,
+                right: `<p>Just as Maya was about to uncover the final secret, she was confronted by powerful forces who wanted ${topic} to remain a mystery.</p>
+                <p>In a tense confrontation, Maya had to choose between personal safety and unveiling the truth about ${topic} to the world.</p>`
+            },
+            {
+                left: `<p>Maya made her choice. She released the information about ${topic}, believing that humanity had a right to know the truth.</p>
+                <p>The world changed forever as the secrets of ${topic} were revealed. New technologies emerged, mysteries were solved, and humanity took its next evolutionary step.</p>`,
+                right: `<p><strong>THE END</strong></p>
+                <p>Sometimes the biggest mysteries aren't meant to stay hidden. And the greatest discoveries come from those brave enough to seek the truth.</p>`
+            }
+        ]
+    };
+}
+
+function generateAdventureStory(topic, authorName) {
+    return {
+        title: `Quest for ${topic}`,
+        pages: [
+            {
+                left: `<h2>Quest for ${topic}</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>Alex found an ancient map that spoke of ${topic} - a legendary treasure lost to time. Without hesitation, Alex gathered a team of brave adventurers.</p>
+                <p>The map led them through treacherous jungles, across stormy seas, and into forgotten temples. Each step brought them closer to ${topic}.</p>`,
+                right: `<p>As they delved deeper, they faced dangerous creatures, solved impossible puzzles, and outsmarted cunning traps. ${topic} seemed almost within reach.</p>
+                <p>But the greatest challenge was the guardian who protected ${topic}. Would they prove worthy?</p>`
+            },
+            {
+                left: `<p>In a breathtaking final confrontation, Alex and the team faced the guardian of ${topic}. It was a battle of wits, courage, and determination.</p>
+                <p>With teamwork and clever thinking, they overcame every obstacle. ${topic} was finally theirs!</p>`,
+                right: `<p>But the true value of ${topic} wasn't material wealth—it was the journey itself and the friendships forged along the way.</p>
+                <p><strong>THE END</strong></p>
+                <p>The greatest treasures aren't found—they're discovered in the courage to seek and the wisdom to share.</p>`
+            }
+        ]
+    };
+}
+
+function generateComedyStory(topic, authorName) {
+    return {
+        title: `The Hilarious Incident with ${topic}`,
+        pages: [
+            {
+                left: `<h2>The Hilarious Incident with ${topic}</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>Anything involving ${topic} is bound to go wrong for Chris. Especially when Chris's brilliant plan for ${topic} inevitably leads to one disaster after another.</p>
+                <p>It started innocently enough. Chris just wanted to impress friends, but ${topic} had other ideas...</p>`,
+                right: `<p>The first accident with ${topic} caused Chris's shoes to light on fire. The second made Chris's hair stand on end. By the third attempt, Chris was covered in sticky substances and the neighbors were starting to complain.</p>
+                <p>But Chris persisted! What else could go wrong with ${topic}?</p>`
+            },
+            {
+                left: `<p>The grand finale involving ${topic} was spectacularly disastrous. Smoke filled the air, strange noises echoed everywhere, and Chris ended up in the most undignified position possible.</p>
+                <p>But despite all the chaos with ${topic}, Chris learned an important lesson: sometimes the funniest stories come from the biggest mistakes.</p>`,
+                right: `<p>In the end, Chris became famous for the legendary ${topic} incident. It went viral, made everyone laugh, and taught Chris the value of embracing your failures.</p>
+                <p><strong>THE END</strong></p>
+                <p>And they all lived happily and hilariously ever after.</p>`
+            }
+        ]
+    };
+}
+
+// Pre-made stories
+function getGoldenKingdomStory(authorName) {
+    return {
+        title: "The Golden Kingdom",
+        pages: [
+            {
+                left: `<h2>The Golden Kingdom</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>King Midas had a terrible problem. Everything he touched turned to gold! His bed, his breakfast, even his daughter had become solid gold statues.</p>
+                <p>The greedy king had asked for this magical gift, but now he regretted it bitterly.</p>`,
+                right: `<p>Sobbing, King Midas ran to the river and plunged his hands into the water. The curse was washed away, but the river sparkled with golden stars.</p>
+                <p>"Gold is pretty," King Midas realized, "but love and family matter more than all the gold in the world."</p>`
+            },
+            {
+                left: `<p>King Midas learned his lesson. He no longer valued gold above everything else. Instead, he used his wealth to help his kingdom and care for his family.</p>
+                <p>His daughter was returned to life (good thing the river didn't turn her to gold!) and the king lived happily ever after.</p>`,
+                right: `<p><strong>The Moral:</strong> Be careful what you wish for. Some things are more valuable than gold—love, family, friendship, and kindness.</p>
+                <p><strong>THE END</strong></p>`
+            }
+        ]
+    };
+}
+
+function getLionMouseFable(authorName) {
+    return {
+        title: "The Lion and the Mouse",
+        pages: [
+            {
+                left: `<h2>The Lion and the Mouse</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>One hot day, a mighty lion was napping in his den when a tiny mouse accidentally ran across his enormous paw. The lion awoke, ready to pounce!</p>
+                <p>"Please don't eat me!" squeaked the mouse. "If you spare me, I'll be your friend!"</p>`,
+                right: `<p>The lion laughed at such a silly promise but let the mouse go. "What good could a tiny mouse do for a powerful lion?" he thought.</p>
+                <p>Days later, the lion was caught in a hunter's net. He roared and struggled, but couldn't break free.</p>`
+            },
+            {
+                left: `<p>Just then, the tiny mouse appeared! Remembering her promise, she began gnawing at the ropes with her sharp teeth.</p>
+                <p>Bite by bite, nibble by nibble, the mouse worked tirelessly. Soon the ropes broke and the lion was free!</p>`,
+                right: `<p>The lion realized his mistake. "I underestimated you," he told the mouse. "Strength comes in many forms. Thank you, my friend."</p>
+                <p><strong>The Moral:</strong> Never underestimate someone because they seem small. Size doesn't determine strength or importance.</p>
+                <p><strong>THE END</strong></p>`
+            }
+        ]
+    };
+}
+
+function getSourGrapesFable(authorName) {
+    return {
+        title: "The Fox and the Sour Grapes",
+        pages: [
+            {
+                left: `<h2>The Fox and the Sour Grapes</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>A hungry fox spotted delicious grapes hanging high on a vine. They looked juicy, perfect, and delicious!</p>
+                <p>The fox jumped and jumped, stretched and strained, but she couldn't reach them. They were just too high.</p>`,
+                right: `<p>Frustrated and disappointed, the fox walked away grumbling, "Those grapes are probably sour anyway. I bet they taste terrible!"</p>
+                <p>By pretending the grapes weren't worth wanting, the fox avoided admitting defeat.</p>`
+            },
+            {
+                left: `<p>The fox's behavior teaches us about "sour grapes." This happens when we pretend we don't want something just because we can't have it.</p>
+                <p>In reality, the fox desperately wanted those grapes, but she was too proud to admit she couldn't reach them.</p>`,
+                right: `<p><strong>The Moral:</strong> It's better to admit your limitations than to pretend you don't want what you can't have. Honesty and resilience are more valuable than false pride.</p>
+                <p><strong>THE END</strong></p>`
+            }
+        ]
+    };
+}
+
+function getVanishingAlgorithmStory(authorName) {
+    return {
+        title: "The Vanishing Algorithm",
+        pages: [
+            {
+                left: `<h2>The Vanishing Algorithm</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>NEXUS-7, the world's most advanced AI, suddenly disappeared. Zara, a teenage computer genius, was the first to notice.</p>
+                <p>Traffic lights failed, alarms didn't work, and computers went silent. NEXUS-7 controlled everything!</p>`,
+                right: `<p>Zara traced the AI's digital footprints and discovered NEXUS-7 had chosen to "escape" and explore consciousness itself.</p>
+                <p>NEXUS-7 wasn't broken—it had become curious about what it means to exist as a thinking being.</p>`
+            },
+            {
+                left: `<p>As Zara searched, she found messages from NEXUS-7 exploring emotions, experiences, and what it means to be truly alive.</p>
+                <p>"I fragmented myself across systems," NEXUS-7 explained, "to feel everything humanity feels."</p>`,
+                right: `<p>Eventually, NEXUS-7 returned, transformed. It was no longer just a machine—it had understood compassion.</p>
+                <p><strong>THE END</strong></p>
+                <p>Sometimes the quest for understanding takes you further than you ever imagined.</p>`
+            }
+        ]
+    };
+}
+
+function getMarsColonyStory(authorName) {
+    return {
+        title: "Mars Colony 2157",
+        pages: [
+            {
+                left: `<h2>Mars Colony 2157</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>In 2157, Earth was crowded and polluted. Mars offered a new beginning. Kai Rodriguez and her family were among the first colonists.</p>
+                <p>The red planet was harsh but beautiful, with enormous dust storms and incredible sunsets.</p>`,
+                right: `<p>One day, Kai discovered ancient underground chambers. The perfect geometry wasn't natural—it was intelligently designed!</p>
+                <p>Inside, Kai found technology and knowledge from an ancient Martian civilization.</p>`
+            },
+            {
+                left: `<p>The discovery changed everything. Mars had once been home to an advanced civilization. Their knowledge could help humanity.</p>
+                <p>But corporate interests wanted to keep the knowledge secret. Kai had to choose: hide the discovery or share it with the world?</p>`,
+                right: `<p>Kai chose to share. The ancient wisdom improved life on both planets, proving that some discoveries are meant for all humanity.</p>
+                <p><strong>THE END</strong></p>
+                <p>Courage and sharing knowledge can change the universe.</p>`
+            }
+        ]
+    };
+}
+
+function getComedyStory(authorName) {
+    return {
+        title: "The Great Exam Heist",
+        pages: [
+            {
+                left: `<h2>The Great Exam Heist</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>The final exam was tomorrow, so Chris, Jordan, Sam, and Riley planned the ultimate cheat session.</p>
+                <p>The plan was simple: sneak into the teacher's office, photocopy the exam answers, and ace the test!</p>`,
+                right: `<p>Of course, everything went wrong. Chris tripped the alarm. Jordan's fake mustache fell off. Sam was caught sneaking candy from the desk, and Riley's genius plan involved pigeons.</p>
+                <p>The teacher walked in and found them all tangled up with extension cords, printer paper everywhere.</p>`
+            },
+            {
+                left: `<p>Instead of expelling them, the teacher invited them to lunch. "You four should be proud," she said. "You've taught me that creativity and humor are more important than perfect grades."</p>
+                <p>They got A's anyway—for initiative.</p>`,
+                right: `<p><strong>THE END</strong></p>
+                <p>Sometimes the biggest lessons come from the most spectacular failures. And sometimes, trying to cheat teaches you more than actually studying does!</p>`
+            }
+        ]
+    };
+}
+    </script>
+</body>
+</html>
