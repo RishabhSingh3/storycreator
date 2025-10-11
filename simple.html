@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Test</title>
+    <style>
+        button { padding: 20px; font-size: 20px; margin: 10px; cursor: pointer; }
+        .result { font-size: 24px; color: green; margin: 20px; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🧪 SIMPLE BUTTON TEST</h1>
+
+    <button onclick="testClick()">Click Me!</button>
+    <button onclick="testStory()">Try Story Card</button>
+    <button onclick="testGenerate()">Generate Story</button>
+
+    <div id="result" class="result">
+        Results will appear here...
+    </div>
+
+    <script>
+        function testClick() {
+            document.getElementById('result').innerHTML = '✅ BUTTON WORKS: Click function fired!';
+        }
+
+        function testStory() {
+            document.getElementById('result').innerHTML = '🎭 STORY CARD WORKS: Pretending to load a story...';
+            // Simulate story loading
+            setTimeout(() => {
+                document.getElementById('result').innerHTML = '📚 STORY LOADED: The Lion and the Mouse';
+            }, 1000);
+        }
+
+        function testGenerate() {
+            const topic = prompt('Enter a topic for your story:');
+            if (topic) {
+                document.getElementById('result').innerHTML = `✨ GENERATING: Creating story about "${topic}"...`;
+                setTimeout(() => {
+                    document.getElementById('result').innerHTML = `🎯 STORY READY: New story generated about "${topic}"!`;
+                }, 1500);
+            }
+        }
+
+        // Show that JavaScript loaded
+        document.getElementById('result').innerHTML = '✅ JAVASCRIPT LOADED: Page ready!';
+    </script>
+</body>
+</html>
