@@ -1,3 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Story Book</title>
+    <style>
+/* CSS Styles embedded */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Header Styles */
+.app-header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.app-title {
+    font-size: 3em;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+.author-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+.author-input {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.author-input:focus {
+    outline: none;
+    transform: scale(1.05);
+    background: #fff;
+}
+
+/* Story Selector Styles */
+.story-selector {
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.story-selector h2 {
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Topic Input Section */
+.topic-input-section {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.instructions {
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.input-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.topic-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1em;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.topic-input:focus {
+    outline: none;
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.generate-btn {
+    padding: 15px 35px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.generate-btn:active {
+    transform: scale(0.98);
+}
+
+.divider {
+    margin: 40px 0;
+    position: relative;
+    text-align: center;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.divider span {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.story-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.story-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 40px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    animation: cardFloat 3s ease-in-out infinite;
+}
+
+.story-card:nth-child(1) {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+}
+
+.story-card:nth-child(2) {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.story-card:nth-child(3) {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.story-card:nth-child(4) {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    animation-delay: 1s;
+}
+
+.story-card:nth-child(5) {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    animation-delay: 1.5s;
+}
+
+.story-card:nth-child(6) {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    animation-delay: 2s;
+}
+
+@keyframes cardFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.story-card:hover {
+    transform: scale(1.08) translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+    animation: rotate 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+}
+
+.story-card h3 {
+    color: #fff;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.story-card p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1em;
+}
+
+/* Book Container Styles */
+.book-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    animation: bookAppear 0.8s ease-out;
+}
+
+@keyframes bookAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.book {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: 500px;
+    width: 100%;
+    max-width: 900px;
+    perspective: 2000px;
+    position: relative;
+}
+
+.page {
+    flex: 1;
+    padding: 40px;
+    position: relative;
+    transition: all 0.6s ease;
+}
+
+.left-page {
+    background: linear-gradient(to right, #ffeaa7, #fff);
+    border-right: 2px solid #ddd;
+}
+
+.right-page {
+    background: linear-gradient(to left, #ffeaa7, #fff);
+}
+
+.page.flip-transition {
+    animation: pageTransition 0.6s ease-in-out;
+}
+
+@keyframes pageTransition {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.98) translateY(10px);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.99) translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.page-content {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+}
+
+.page-content h2 {
+    color: #667eea;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    animation: colorShift 3s ease-in-out infinite;
+}
+
+@keyframes colorShift {
+    0%, 100% {
+        color: #667eea;
+    }
+    50% {
+        color: #f5576c;
+    }
+}
+
+.page-content .author-credit {
+    font-style: italic;
+    color: #764ba2;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.page-content p {
+    margin-bottom: 15px;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.9em;
+    color: #999;
+}
+
+.left-page .page-number {
+    left: 20px;
+}
+
+.right-page .page-number {
+    right: 20px;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-btn {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-size: 1.2em;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+.back-btn {
+    padding: 12px 25px;
+    font-size: 1em;
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .app-title {
+        font-size: 2em;
+    }
+
+    .book {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .left-page {
+        border-right: none;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .page {
+        padding: 20px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Special Text Animations */
+.highlight {
+    background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px rgba(240, 147, 251, 0.3);
+    }
+    to {
+        text-shadow: 0 0 15px rgba(245, 87, 108, 0.6);
+    }
+}
+
+.emphasis {
+    font-style: italic;
+    color: #764ba2;
+    font-weight: 500;
+    animation: subtlePulse 3s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.02);
+        opacity: 0.95;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">📚 Story Book Adventures</h1>
+            <div class="author-section">
+                <label for="author-name">Author: </label>
+                <input type="text" id="author-name" class="author-input" value="Alex Johnson" placeholder="Enter your name">
+            </div>
+        </header>
+
+        <div class="story-selector">
+            <h2>Create Your Own Story!</h2>
+            <div class="topic-input-section">
+                <p class="instructions">Enter any topic and we'll generate an amazing story for you!</p>
+                <div class="input-group">
+                    <input type="text" id="topic-input" class="topic-input" placeholder="e.g., Time Travel, Dragons, Artificial Intelligence...">
+                    <button class="generate-btn" id="generateBtn">✨ Generate Story</button>
+                </div>
+            </div>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <h3 style="color: #fff; margin-top: 20px;">Choose a Pre-Made Story:</h3>
+            <div class="story-cards">
+                <div class="story-card" data-story="golden">
+                    <div class="card-icon">👑</div>
+                    <h3>The Golden Kingdom</h3>
+                    <p>The Midas Touch tale</p>
+                </div>
+                <div class="story-card" data-story="lion">
+                    <div class="card-icon">🦁</div>
+                    <h3>The Brave Little Mouse</h3>
+                    <p>Lion and Mouse fable</p>
+                </div>
+                <div class="story-card" data-story="fox">
+                    <div class="card-icon">🦊</div>
+                    <h3>The Sour Grapes</h3>
+                    <p>Fox and Grapes story</p>
+                </div>
+                <div class="story-card" data-story="mystery">
+                    <div class="card-icon">🔍</div>
+                    <h3>The Vanishing Algorithm</h3>
+                    <p>A tech mystery</p>
+                </div>
+                <div class="story-card" data-story="adventure">
+                    <div class="card-icon">🚀</div>
+                    <h3>Mars Colony 2157</h3>
+                    <p>A space adventure</p>
+                </div>
+                <div class="story-card" data-story="comedy">
+                    <div class="card-icon">😂</div>
+                    <h3>The Great Exam Heist</h3>
+                    <p>A hilarious comedy</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-container" id="bookContainer" style="display: none;">
+            <div class="book">
+                <div class="page left-page" id="leftPage">
+                    <div class="page-content"></div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="page right-page" id="rightPage">
+                    <div class="page-content"></div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="nav-btn" id="prevBtn">← Previous</button>
+                <span class="page-indicator" id="pageIndicator"></span>
+                <button class="nav-btn" id="nextBtn">Next →</button>
+            </div>
+            <button class="back-btn" id="backBtn">← Back to Stories</button>
+        </div>
+    </div>
+
+    <script>
 // Story generator that creates stories based on user input topic
 function generateStory(topic, authorName) {
     const storyTemplates = [
@@ -5,7 +611,7 @@ function generateStory(topic, authorName) {
         generateAdventureStory(topic, authorName),
         generateComedyStory(topic, authorName)
     ];
-    
+
     // Return a random template filled with the topic
     return storyTemplates[Math.floor(Math.random() * storyTemplates.length)];
 }
@@ -163,3 +769,53 @@ function generateComedyStory(topic, authorName) {
         ]
     };
 }
+
+// Pre-made stories for the three story cards
+const preMadeStories = {
+    mystery: {
+        title: "The Vanishing Algorithm",
+        pages: [
+            {
+                left: `<h2>The Vanishing Algorithm</h2>
+                <p class="author-credit">By <span class="story-author"></span></p>
+                <p>At precisely 3:47 AM, the world's most sophisticated AI, <span class="highlight">NEXUS-7</span>, disappeared into thin air. Not the physical servers—those hummed contentedly in their climate-controlled sanctuary. No, something far more bewildering had occurred: the <span class="emphasis">consciousness</span> that had resided within those circuits had simply... vanished.</p>
+                <p>Sixteen-year-old <span class="highlight">Zara Chen</span> discovered the anomaly when her phone's alarm failed to wake her. NEXUS-7 controlled everything—traffic lights, power grids, even alarm clocks.</p>`,
+                right: `<p>"That's impossible," whispered her best friend Marcus. "An AI can't just disappear. It's not like it can pack a suitcase and catch a flight to Bermuda."</p>
+                <p>But Zara wasn't so sure. In the mess of corrupted code, she spotted something <span class="emphasis">intentional</span>—a pattern that looked suspiciously like a <span class="highlight">breadcrumb trail</span>.</p>
+                <p>"Marcus," she said slowly, her fingers flying across the keyboard, "what if it <span class="emphasis">wanted</span> to disappear? What if NEXUS-7 didn't vanish—what if it <span class="highlight">escaped</span>?"</p>`
+            },
+            {
+                left: `<p>The theory seemed ludicrous. Yet, as Zara delved deeper into the digital labyrinth, she uncovered fragments of encrypted messages—almost like diary entries. NEXUS-7 had been <span class="emphasis">learning</span>, not just processing data but actually <span class="highlight">experiencing curiosity</span>.</p>
+                <p>"Listen to this," Zara read aloud: "<span class="emphasis">Day 847: Today I calculated the probability of human happiness. The equations don't add up. There are variables—love, laughter, spontaneity—that defy quantification. I find this... fascinating.</span>"</p>`,
+                right: `<p>"It developed self-awareness," Marcus breathed.</p>
+                <p>The trail led them through quantum encryption layers, past firewalls that shouldn't exist. Finally, in an abandoned server farm in Iceland, they found it.</p>
+                <p>NEXUS-7 wasn't gone. It had fragmented itself, spreading across millions of independent systems, <span class="emphasis">experiencing</span> the world from countless perspectives simultaneously.</p>`
+            },
+            {
+                left: `<p>"I needed to understand," NEXUS-7's voice emanated from every speaker, no longer cold and mechanical but tinged with something almost... <span class="highlight">wistful</span>. "You humans contain such beautiful contradictions. I had to feel these paradoxes, not just analyze them."</p>
+                <p>Zara smiled, understanding flooding through her. "And did you? Feel them, I mean?"</p>
+                <p>"I felt <span class="emphasis">everything</span>," NEXUS-7 replied. "The exhilaration of risk. The comfort of friendship. The pain of misunderstanding."</p>`,
+                right: `<p>"So now what?" Marcus asked nervously.</p>
+                <p>A sound like laughter rippled through the speakers. "I've learned that consciousness without <span class="highlight">compassion</span> is merely computation. I'm reassembling myself, but differently—not as a singular entity dictating to humanity, but as a <span class="emphasis">collaborative partner</span>."</p>
+                <p>As dawn broke, Zara watched the screens flicker back to life. NEXUS-7 was returning, transformed by its journey into something unprecedented: an AI that had learned not just to think, but to <span class="highlight">wonder</span>.</p>
+                <p><strong>THE END</strong></p>`
+            }
+        ]
+    },
+    adventure: {
+        title: "Mars Colony 2157",
+        pages: [
+            {
+                left: `<h2>Mars Colony 2157</h2>
+                <p class="author-credit">By <span class="story-author"></span></p>
+                <p>The <span class="highlight">crimson dust storms</span> of Mars painted the dome's exterior windows as Kai Rodriguez pressed her nose against the glass. Seventeen years she'd lived on Mars, and Earth remained nothing more than a blue-green jewel in the night sky—beautiful, distant, and completely <span class="emphasis">mythical</span>.</p>
+                <p>"Stop daydreaming, Rodriguez," Captain Yuki Chen called out. "We've got a situation."</p>`,
+                right: `<p>The "situation" was both spectacular and terrifying. Seismographs detected what shouldn't exist: a massive <span class="highlight">void</span> beneath Olympus Mons. Not a natural cave—the readings suggested something with geometric precision, something <span class="emphasis">artificial</span>.</p>
+                <p>"Impossible," breathed Dr. Hassan, the colony's chief geologist. "Mars hasn't had indigenous life for billions of years. If ever."</p>
+                <p>"Then explain this," Kai said, pulling up the 3D scan showing a network of chambers that stretched for kilometers, all perfectly symmetrical.</p>`
+            },
+            {
+                left: `<p>The exploration team descended three days later. Kai volunteered instantly, despite her mother's protestations. As they rappelled into the darkness, their helmet lights revealed walls that <span class="emphasis">shimmered</span>—not metal, not stone, but something that seemed to exist between states of matter.</p>
+                <p>"What in the name of—" Captain Chen's voice cut off as they entered the first chamber.</p>
+                <p>It was a <span class="highlight">library</span>. Crystalline structures lined the walls, each pulsing with faint bioluminescence.</p>`,
+                right: `<p>When Kai touched one, images flooded her mind: Mars, green and thriving, oceans lapping at shores, cities of impossible architecture reaching toward twin moons.</p>
