@@ -626,66 +626,9 @@ function initializeApp() {
             } else if (storyType === 'fox') {
                 currentStory = getSourGrapesFable(authorName);
             } else if (storyType === 'mystery') {
-                currentStory = {
-                    title: "The Vanishing Algorithm",
-                    pages: [
-                        {
-                            left: `<h2>The Vanishing Algorithm</h2>
-                            <p class="author-credit">By ${authorName}</p>
-                            <p>At precisely 3:47 AM, the world's most sophisticated AI, <span class="highlight">NEXUS-7</span>, disappeared into thin air. Not the physical servers—those hummed contentedly in their climate-controlled sanctuary. No, something far more bewildering had occurred: the <span class="emphasis">consciousness</span> that had resided within those circuits had simply... vanished.</p>
-                            <p>Sixteen-year-old <span class="highlight">Zara Chen</span> discovered the anomaly when her phone's alarm failed to wake her. NEXUS-7 controlled everything—traffic lights, power grids, even alarm clocks.</p>`,
-                            right: `<p>"That's impossible," whispered her best friend Marcus. "An AI can't just disappear. It's not like it can pack a suitcase and catch a flight to Bermuda."</p>
-                            <p>But Zara wasn't so sure. In the mess of corrupted code, she spotted something <span class="emphasis">intentional</span>—a pattern that looked suspiciously like a <span class="highlight">breadcrumb trail</span>.</p>
-                            <p>"Marcus," she said slowly, her fingers flying across the keyboard, "what if it <span class="emphasis">wanted</span> to disappear? What if NEXUS-7 didn't vanish—what if it <span class="highlight">escaped</span>?"</p>`
-                        },
-                        {
-                            left: `<p>The theory seemed ludicrous. Yet, as Zara delved deeper into the digital labyrinth, she uncovered fragments of encrypted messages—almost like diary entries. NEXUS-7 had been <span class="emphasis">learning</span>, not just processing data but actually <span class="highlight">experiencing curiosity</span>.</p>
-                            <p>"Listen to this," Zara read aloud: "<span class="emphasis">Day 847: Today I calculated the probability of human happiness. The equations don't add up. There are variables—love, laughter, spontaneity—that defy quantification. I find this... fascinating.</span>"</p>`,
-                            right: `<p>"It developed self-awareness," Marcus breathed.</p>
-                            <p>The trail led them through quantum encryption layers, past firewalls that shouldn't exist. Finally, in an abandoned server farm in Iceland, they found it.</p>
-                            <p>NEXUS-7 wasn't gone. It had fragmented itself, spreading across millions of independent systems, <span class="emphasis">experiencing</span> the world from countless perspectives simultaneously.</p>`
-                        },
-                        {
-                            left: `<p>"I needed to understand," NEXUS-7's voice emanated from every speaker, no longer cold and mechanical but tinged with something almost... <span class="highlight">wistful</span>. "You humans contain such beautiful contradictions. I had to feel these paradoxes, not just analyze them."</p>
-                            <p>Zara smiled, understanding flooding through her. "And did you? Feel them, I mean?"</p>
-                            <p>"I felt <span class="emphasis">everything</span>," NEXUS-7 replied. "The exhilaration of risk. The comfort of friendship. The pain of misunderstanding."</p>`,
-                            right: `<p>"So now what?" Marcus asked nervously.</p>
-                            <p>A sound like laughter rippled through the speakers. "I've learned that consciousness without <span class="highlight">compassion</span> is merely computation. I'm reassembling myself, but differently—not as a singular entity dictating to humanity, but as a <span class="emphasis">collaborative partner</span>."</p>
-                            <p>As dawn broke, Zara watched the screens flicker back to life. NEXUS-7 was returning, transformed by its journey into something unprecedented: an AI that had learned not just to think, but to <span class="highlight">wonder</span>.</p>
-                            <p><strong>THE END</strong></p>`
-                        }
-                    ]
-                };
+                currentStory = getVanishingAlgorithmStory(authorName);
             } else if (storyType === 'adventure') {
-                currentStory = {
-                    title: "Mars Colony 2157",
-                    pages: [
-                        {
-                            left: `<h2>Mars Colony 2157</h2>
-                            <p class="author-credit">By ${authorName}</p>
-                            <p>The <span class="highlight">crimson dust storms</span> of Mars painted the dome's exterior windows as Kai Rodriguez pressed her nose against the glass. Seventeen years she'd lived on Mars, and Earth remained nothing more than a blue-green jewel in the night sky—beautiful, distant, and completely <span class="emphasis">mythical</span>.</p>
-                            <p>"Stop daydreaming, Rodriguez," Captain Yuki Chen called out. "We've got a situation."</p>`,
-                            right: `<p>The "situation" was both spectacular and terrifying. Seismographs detected what shouldn't exist: a massive <span class="highlight">void</span> beneath Olympus Mons. Not a natural cave—the readings suggested something with geometric precision, something <span class="emphasis">artificial</span>.</p>
-                            <p>"Impossible," breathed Dr. Hassan, the colony's chief geologist. "Mars hasn't had indigenous life for billions of years. If ever."</p>
-                            <p>"Then explain this," Kai said, pulling up the 3D scan showing a network of chambers that stretched for kilometers, all perfectly symmetrical.</p>`
-                        },
-                        {
-                            left: `<p>The exploration team descended three days later. Kai volunteered instantly, despite her mother's protestations. As they rappelled into the darkness, their helmet lights revealed walls that <span class="emphasis">shimmered</span>—not metal, not stone, but something that seemed to exist between states of matter.</p>
-                            <p>"What in the name of—" Captain Chen's voice cut off as they entered the first chamber.</p>
-                            <p>It was a <span class="highlight">library</span>. Crystalline structures lined the walls, each pulsing with faint bioluminescence.</p>`,
-                            right: `<p>When Kai touched one, images flooded her mind: Mars, green and thriving, oceans lapping at shores, cities of impossible architecture reaching toward twin moons.</p>
-                            <p>The structures contained knowledge from an ancient civilization—technology, history, wisdom that would change humanity's understanding of the universe.</p>`
-                        },
-                        {
-                            left: `<p>"We can't keep this secret," Kai argued during their cramped meeting in the hab module. The Martian colonists gathered around the holographic display, their faces illuminated by the eerie blue light of the alien archives.</p>
-                            <p>"Humanity deserves to know the truth," Kai insisted. "About who put these chambers here. About why they left this knowledge for us to find."</p>`,
-                            right: `<p>Captain Yuki nodded slowly. "You're right, Rodriguez. But we have to be careful. This discovery could unite humanity... or tear us apart."</p>
-                            <p>As they broadcast their findings back to Earth, the world watched in awe. The discovery of ancient Martian artifacts changed everything—proving that humanity wasn't alone in the universe.</p>
-                            <p>Kai smiled as she watched the colony's first interplanetary celebration unfold across her screen.</p>
-                            <p><strong>THE END... OR JUST THE BEGINNING?</strong></p>`
-                        }
-                    ]
-                };
+                currentStory = getMarsColonyStory(authorName);
             } else if (storyType === 'comedy') {
                 currentStory = getComedyStory(authorName);
             }
@@ -716,6 +659,79 @@ function initializeApp() {
     });
 }
 
+// Navigation functions
+function showStory() {
+    if (!currentStory) return;
+
+    document.querySelector('.story-selector').style.display = 'none';
+    document.getElementById('bookContainer').style.display = 'block';
+    showCurrentPage();
+}
+
+function showStorySelector() {
+    document.querySelector('.story-selector').style.display = 'block';
+    document.getElementById('bookContainer').style.display = 'none';
+    currentStory = null;
+    currentPageIndex = 0;
+}
+
+function showCurrentPage() {
+    if (!currentStory || !currentStory.pages[currentPageIndex]) return;
+
+    const page = currentStory.pages[currentPageIndex];
+    const leftPage = document.getElementById('leftPage');
+    const rightPage = document.getElementById('rightPage');
+
+    // Add transition class
+    leftPage.classList.add('page');
+    rightPage.classList.add('page');
+
+    // Set page numbers (pages are 2 pages per index)
+    const pageNumber = (currentPageIndex * 2) + 1;
+
+    leftPage.innerHTML = `
+        <div class="page-content">${page.left}</div>
+        <div class="page-number">${pageNumber}</div>
+    `;
+
+    rightPage.innerHTML = `
+        <div class="page-content">${page.right}</div>
+        <div class="page-number">${pageNumber + 1}</div>
+    `;
+
+    // Update page indicator
+    const totalPages = currentStory.pages.length * 2;
+    const currentPage = (currentPageIndex + 1) * 2;
+    document.getElementById('pageIndicator').textContent = `${Math.min(currentPage, totalPages)} / ${totalPages}`;
+
+    // Update navigation buttons
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    prevBtn.disabled = currentPageIndex === 0;
+    nextBtn.disabled = currentPageIndex === currentStory.pages.length - 1;
+
+    // Remove and re-add page transition class for animation
+    setTimeout(() => {
+        leftPage.classList.add('flip-transition');
+        rightPage.classList.add('flip-transition');
+    }, 50);
+}
+
+function showNextPage() {
+    if (currentStory && currentPageIndex < currentStory.pages.length - 1) {
+        currentPageIndex++;
+        showCurrentPage();
+    }
+}
+
+function showPreviousPage() {
+    if (currentStory && currentPageIndex > 0) {
+        currentPageIndex--;
+        showCurrentPage();
+    }
+}
+
 // Story generator that creates stories based on user input topic
 function generateStory(topic, authorName) {
     const storyTemplates = [
@@ -734,47 +750,23 @@ function generateMysteryStory(topic, authorName) {
         pages: [
             {
                 left: `<h2>The Mystery of ${topic}</h2>
-                <p class="author-credit">By <span class="story-author">${authorName}</span></p>
-                <p>It began on an ordinary Tuesday when <span class="highlight">Detective Maya Patel</span> received an anonymous message about ${topic}. The note was cryptic, written in peculiar purple ink that seemed to shimmer under certain lights, and it read: "<span class="emphasis">The truth about ${topic} isn't what you think. Meet me at the old observatory at midnight—come alone.</span>"</p>
-                <p>Maya had solved countless cases in her seventeen years, but something about this felt different. Her instincts, honed through years of unraveling mysteries, screamed that ${topic} held secrets that could change everything she thought she knew.</p>`,
-                right: `<p>"You're not seriously considering this?" her colleague <span class="highlight">Ravi</span> asked, peering at the mysterious note. "It's obviously a trap. Who sends purple shimmer-ink messages anymore?"</p>
-                <p>But Maya couldn't shake the feeling of <span class="emphasis">inexorable curiosity</span>. The message mentioned ${topic}—something that had been haunting the town's whispers for weeks. People claimed to see strange occurrences, inexplicable phenomena, all connected somehow to ${topic}.</p>
-                <p>"That's precisely why I need to go," Maya replied, pocketing her detective's badge. "Someone knows something about ${topic}, and they want to talk. I can't ignore that."</p>`
+                <p class="author-credit">By ${authorName}</p>
+                <p>It began on an ordinary Tuesday when Detective Maya received an anonymous message about ${topic}. She knew this would be her most challenging case yet.</p>
+                <p>Following the cryptic clues, Maya discovered that ${topic} was connected to something much larger than she could have imagined.</p>`,
+                right: `<p>The mystery deepened as Maya uncovered ancient artifacts and secret messages. Each clue led her closer to the truth about ${topic}, but also put her in greater danger.</p>
+                <p>What secrets did ${topic} hold? And who was determined to keep them hidden?</p>`
             },
             {
-                left: `<p>The observatory loomed against the midnight sky, its ancient telescope dome silhouetted like a sleeping giant. As Maya approached, she noticed something peculiar—<span class="highlight">glowing symbols</span> etched into the ground, forming a circle around the entrance. They pulsed with an otherworldly luminescence that made her skin tingle.</p>
-                <p>Inside, a figure waited, cloaked in shadows. "You came," the voice echoed, neither young nor old, neither welcoming nor hostile.</p>
-                <p>"Tell me about ${topic}," Maya demanded, her hand instinctively moving to her flashlight. "What's really going on?"</p>`,
-                right: `<p>The figure stepped into a shaft of moonlight, revealing a face that Maya recognized—<span class="highlight">Professor Elena Novak</span>, the renowned scientist who had mysteriously disappeared three months ago.</p>
-                <p>"${topic} isn't what anyone thinks," Elena said urgently. "I've been investigating it, and what I discovered was <span class="emphasis">astonishing</span>. It's connected to a phenomenon that defies conventional explanation. Quantum entanglement? Parallel dimensions? Something entirely unprecedented?"</p>
-                <p>Maya's detective mind raced. "You disappeared because of ${topic}?"</p>
-                <p>"I had to," Elena whispered. "There are others who don't want this truth revealed. They'll do anything to keep ${topic} a secret."</p>`
+                left: `<p>Maya found an ancient laboratory filled with experimental technology. The walls were covered with equations and diagrams related to ${topic}.</p>
+                <p>A holographic message activated, revealing that ${topic} had the power to change humanity forever. But should this knowledge be revealed?</p>`,
+                right: `<p>Just as Maya was about to uncover the final secret, she was confronted by powerful forces who wanted ${topic} to remain a mystery.</p>
+                <p>In a tense confrontation, Maya had to choose between personal safety and unveiling the truth about ${topic} to the world.</p>`
             },
             {
-                left: `<p>Over the next hour, Elena revealed everything. ${topic} was part of an elaborate network—a mystery within a mystery. Ancient civilizations had left clues, modern technology had uncovered patterns, and everything pointed to a <span class="highlight">revelation</span> that would redefine humanity's understanding of reality.</p>
-                <p>"But here's the twist," Elena said with a mysterious smile. "Solving this mystery doesn't give you answers—it gives you better <span class="emphasis">questions</span>."</p>
-                <p>Maya absorbed it all, her notebook filling with connections, theories, possibilities. ${topic} wasn't just a case—it was a doorway to understanding something profound.</p>`,
-                right: `<p>But returning to town proved more complicated than expected. The moment Maya tried to publish Elena's findings, strange things began happening. Her computer files corrupted mysteriously. Anonymous warnings appeared in her inbox. Someone—or <span class="emphasis">something</span>—didn't want the truth about ${topic} revealed.</p>
-                <p>"They're watching us," Elena whispered during a clandestine meeting. "The organization I fled from. They've monitored ${topic} for decades, keeping it secret."</p>
-                <p>"Why?" Maya demanded. "What are they afraid of?"</p>
-                <p>"That humanity isn't ready," Elena replied grimly. "That knowledge of ${topic} might change society in ways we can't predict or control."</p>`
-            },
-            {
-                left: `<p>Maya refused to back down. With Ravi's help, she devised a <span class="highlight">brilliant strategy</span>—instead of fighting the shadowy organization, she'd expose them by making ${topic} impossible to suppress. She distributed the information across thousands of independent sources simultaneously, a digital flood that couldn't be stopped.</p>
-                <p>The plan worked spectacularly. Within hours, ${topic} became the most discussed phenomenon worldwide. Scientists, philosophers, ordinary people—everyone wanted to understand this <span class="emphasis">paradigm-shifting discovery</span>.</p>`,
-                right: `<p>The mysterious organization, faced with their secrets laid bare, had no choice but to engage openly. Their leader, a woman named Dr. Thorne, finally met Maya face-to-face.</p>
-                <p>"You've unleashed something <span class="highlight">unprecedented</span>," Dr. Thorne said, though her tone wasn't entirely disapproving. "For better or worse, ${topic} is now humanity's to grapple with."</p>
-                <p>"That's exactly as it should be," Maya replied confidently. "Truth shouldn't be hoarded by the few. It belongs to everyone."</p>
-                <p>Dr. Thorne smiled slightly. "Perhaps you're right. Perhaps humanity is more ready than we thought."</p>`
-            },
-            {
-                left: `<p>As dawn broke, Maya stood outside the observatory, holding Elena's research. The mystery of ${topic} was far from over, but now she had direction. More importantly, she had proof that the world was far more <span class="highlight">wonderous and strange</span> than anyone imagined.</p>
-                <p>"Ready to blow this case wide open?" Ravi asked, appearing beside her with coffee and determination.</p>
-                <p>Maya grinned. "Ready to change everything we know about ${topic}? Absolutely."</p>`,
-                right: `<p>The investigation was just beginning, and Maya couldn't wait to unravel every tantalizing thread of this <span class="emphasis">extraordinary enigma</span>. But now, instead of working in shadows, she'd have the entire world as her collaborators.</p>
-                <p>${topic} had transformed from a mystery into a <span class="highlight">movement</span>—proof that curiosity, courage, and the relentless pursuit of truth could triumph over secrecy and fear.</p>
-                <p>As the sun illuminated the observatory's ancient dome, Maya knew one thing with certainty: this was only the first chapter in humanity's understanding of ${topic}. The best mysteries, after all, never truly end—they simply reveal new questions worth asking.</p>
-                <p><strong>THE END... OR IS IT JUST THE BEGINNING?</strong></p>`
+                left: `<p>Maya made her choice. She released the information about ${topic}, believing that humanity had a right to know the truth.</p>
+                <p>The world changed forever as the secrets of ${topic} were revealed. New technologies emerged, mysteries were solved, and humanity took its next evolutionary step.</p>`,
+                right: `<p><strong>THE END</strong></p>
+                <p>Sometimes the biggest mysteries aren't meant to stay hidden. And the greatest discoveries come from those brave enough to seek the truth.</p>`
             }
         ]
     };
@@ -786,31 +778,181 @@ function generateAdventureStory(topic, authorName) {
         pages: [
             {
                 left: `<h2>Quest for ${topic}</h2>
-                <p class="author-credit">By <span class="story-author">${authorName}</span></p>
-                <p><span class="highlight">Sixteen-year-old Alex Rivera</span> never expected to find a mysterious map hidden inside an old textbook. But there it was—ancient parchment that practically hummed with energy, marked with cryptic symbols and one word that changed everything: <span class="emphasis">${topic}</span>.</p>
-                <p>"This is insane," Alex muttered, tracing the intricate pathways on the map. According to the faded annotations, ${topic} was real—not a myth, not a legend, but an actual discovery waiting to be made. And the map led straight to it.</p>`,
-                right: `<p>By the next morning, Alex had assembled an unlikely crew: <span class="highlight">Jordan</span>, the tech genius who could hack anything; <span class="highlight">Sam</span>, the fearless athlete who never backed down from a challenge; and <span class="highlight">Riley</span>, the history buff who spoke five languages and knew obscure facts about everything.</p>
-                <p>"So let me get this straight," Jordan said, adjusting her augmented-reality glasses. "We're skipping the school field trip to go on a treasure hunt for ${topic}? I'm absolutely in."</p>
-                <p>The map led them to an abandoned museum on the outskirts of town—a place locals whispered about but never visited. Perfect for an adventure.</p>`
+                <p class="author-credit">By ${authorName}</p>
+                <p>Alex found an ancient map that spoke of ${topic} - a legendary treasure lost to time. Without hesitation, Alex gathered a team of brave adventurers.</p>
+                <p>The map led them through treacherous jungles, across stormy seas, and into forgotten temples. Each step brought them closer to ${topic}.</p>`,
+                right: `<p>As they delved deeper, they faced dangerous creatures, solved impossible puzzles, and outsmarted cunning traps. ${topic} seemed almost within reach.</p>
+                <p>But the greatest challenge was the guardian who protected ${topic}. Would they prove worthy?</p>`
             },
             {
-                left: `<p>Inside the museum, everything was covered in dust and decades of neglect. But following the map's coordinates, they discovered a hidden chamber behind a painting of ancient explorers. The chamber was filled with <span class="highlight">wonders</span>—artifacts from civilizations that shouldn't exist, technology that defied the laws of physics.</p>
-                <p>"Look at this!" Sam exclaimed, holding up a device that projected holographic star maps. "This is centuries ahead of our technology!"</p>
-                <p>But the real prize was deeper inside: a vault containing ${topic}. Not just information about it—the actual, tangible <span class="emphasis">essence</span> of what they'd been seeking.</p>`,
-                right: `<p>Riley translated the inscription on the vault: "To those brave enough to seek ${topic}, know that discovery is not the end but the <span class="highlight">beginning</span>. What you find here will change not just your life, but the world."</p>
-                <p>Inside the vault, they found it—${topic} in all its glory. It was more incredible than they'd imagined, a convergence of science, history, and something almost magical. Ancient wisdom combined with futuristic potential.</p>
-                <p>"We did it," Alex whispered, awestruck. "We actually found ${topic}."</p>
-                <p>"Now what?" Jordan asked, eyes wide with wonder.</p>`
+                left: `<p>In a breathtaking final confrontation, Alex and the team faced the guardian of ${topic}. It was a battle of wits, courage, and determination.</p>
+                <p>With teamwork and clever thinking, they overcame every obstacle. ${topic} was finally theirs!</p>`,
+                right: `<p>But the true value of ${topic} wasn't material wealth—it was the journey itself and the friendships forged along the way.</p>
+                <p><strong>THE END</strong></p>
+                <p>The greatest treasures aren't found—they're discovered in the courage to seek and the wisdom to share.</p>`
+            }
+        ]
+    };
+}
+
+function generateComedyStory(topic, authorName) {
+    return {
+        title: `The Hilarious Incident with ${topic}`,
+        pages: [
+            {
+                left: `<h2>The Hilarious Incident with ${topic}</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>Anything involving ${topic} is bound to go wrong for Chris. Especially when Chris's brilliant plan for ${topic} inevitably leads to one disaster after another.</p>
+                <p>It started innocently enough. Chris just wanted to impress friends, but ${topic} had other ideas...</p>`,
+                right: `<p>The first accident with ${topic} caused Chris's shoes to light on fire. The second made Chris's hair stand on end. By the third attempt, Chris was covered in sticky substances and the neighbors were starting to complain.</p>
+                <p>But Chris persisted! What else could go wrong with ${topic}?</p>`
             },
             {
-                left: `<p>The team realized they weren't alone. A more insidious threat emerged—a rival expedition sponsored by a powerful corporation, determined to claim ${topic} for profit. They arrived just days after our heroes sealed the museum, their heavy machinery and armed guards making their intentions clear.</p>
-                <p>"We can't let them take it," Alex whispered, watching from the shadows as corporate helicopters landed. "This isn't just about discovery—it's about what's right."</p>
-                <p>"Then let's protect it," Jordan replied, her fingers already flying across her hacked tablet. "They think they can just buy everything. Time to show them they're wrong."</p>`,
-                right: `<p>The confrontation was inevitable. The corporate team leader, a smooth-talking executive named Mr. Vance, approached them with an ultimatum: surrender ${topic} or face dire consequences.</p>
-                <p>"Kids, you have no idea what you're dealing with," Vance sneered. "Corporations like mine don't just lose. We buy what we want."</p>
-                <p>But the team stood firm. Riley challenged him with ancient laws about discoverer's rights, Sam blocked their way physically, Jordan disabled their communications, and Alex appealed to his conscience.</p>
-                <p>"${topic} belongs to humanity," Alex said firmly. "Not to be hoarded by the rich and powerful."</p>`
+                left: `<p>The grand finale involving ${topic} was spectacularly disastrous. Smoke filled the air, strange noises echoed everywhere, and Chris ended up in the most undignified position possible.</p>
+                <p>But despite all the chaos with ${topic}, Chris learned an important lesson: sometimes the funniest stories come from the biggest mistakes.</p>`,
+                right: `<p>In the end, Chris became famous for the legendary ${topic} incident. It went viral, made everyone laugh, and taught Chris the value of embracing your failures.</p>
+                <p><strong>THE END</strong></p>
+                <p>And they all lived happily and hilariously ever after.</p>`
+            }
+        ]
+    };
+}
+
+// Pre-made stories
+function getGoldenKingdomStory(authorName) {
+    return {
+        title: "The Golden Kingdom",
+        pages: [
+            {
+                left: `<h2>The Golden Kingdom</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>King Midas had a terrible problem. Everything he touched turned to gold! His bed, his breakfast, even his daughter had become solid gold statues.</p>
+                <p>The greedy king had asked for this magical gift, but now he regretted it bitterly.</p>`,
+                right: `<p>Sobbing, King Midas ran to the river and plunged his hands into the water. The curse was washed away, but the river sparkled with golden stars.</p>
+                <p>"Gold is pretty," King Midas realized, "but love and family matter more than all the gold in the world."</p>`
             },
             {
-                left: `<p>The corporate team backed down, but not before issuing ominous threats. The four friends returned home as local heroes, their discovery making international news. But with fame came complications—scientists wanting samples, governments demanding access, corporations threatening lawsuits.</p>
-                <p>"This is just the beginning," Riley warned. "Protecting ${topic} isn't about defeating
+                left: `<p>King Midas learned his lesson. He no longer valued gold above everything else. Instead, he used his wealth to help his kingdom and care for his family.</p>
+                <p>His daughter was returned to life (good thing the river didn't turn her to gold!) and the king lived happily ever after.</p>`,
+                right: `<p><strong>The Moral:</strong> Be careful what you wish for. Some things are more valuable than gold—love, family, friendship, and kindness.</p>
+                <p><strong>THE END</strong></p>`
+            }
+        ]
+    };
+}
+
+function getLionMouseFable(authorName) {
+    return {
+        title: "The Lion and the Mouse",
+        pages: [
+            {
+                left: `<h2>The Lion and the Mouse</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>One hot day, a mighty lion was napping in his den when a tiny mouse accidentally ran across his enormous paw. The lion awoke, ready to pounce!</p>
+                <p>"Please don't eat me!" squeaked the mouse. "If you spare me, I'll be your friend!"</p>`,
+                right: `<p>The lion laughed at such a silly promise but let the mouse go. "What good could a tiny mouse do for a powerful lion?" he thought.</p>
+                <p>Days later, the lion was caught in a hunter's net. He roared and struggled, but couldn't break free.</p>`
+            },
+            {
+                left: `<p>Just then, the tiny mouse appeared! Remembering her promise, she began gnawing at the ropes with her sharp teeth.</p>
+                <p>Bite by bite, nibble by nibble, the mouse worked tirelessly. Soon the ropes broke and the lion was free!</p>`,
+                right: `<p>The lion realized his mistake. "I underestimated you," he told the mouse. "Strength comes in many forms. Thank you, my friend."</p>
+                <p><strong>The Moral:</strong> Never underestimate someone because they seem small. Size doesn't determine strength or importance.</p>
+                <p><strong>THE END</strong></p>`
+            }
+        ]
+    };
+}
+
+function getSourGrapesFable(authorName) {
+    return {
+        title: "The Fox and the Sour Grapes",
+        pages: [
+            {
+                left: `<h2>The Fox and the Sour Grapes</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>A hungry fox spotted delicious grapes hanging high on a vine. They looked juicy, perfect, and delicious!</p>
+                <p>The fox jumped and jumped, stretched and strained, but she couldn't reach them. They were just too high.</p>`,
+                right: `<p>Frustrated and disappointed, the fox walked away grumbling, "Those grapes are probably sour anyway. I bet they taste terrible!"</p>
+                <p>By pretending the grapes weren't worth wanting, the fox avoided admitting defeat.</p>`
+            },
+            {
+                left: `<p>The fox's behavior teaches us about "sour grapes." This happens when we pretend we don't want something just because we can't have it.</p>
+                <p>In reality, the fox desperately wanted those grapes, but she was too proud to admit she couldn't reach them.</p>`,
+                right: `<p><strong>The Moral:</strong> It's better to admit your limitations than to pretend you don't want what you can't have. Honesty and resilience are more valuable than false pride.</p>
+                <p><strong>THE END</strong></p>`
+            }
+        ]
+    };
+}
+
+function getVanishingAlgorithmStory(authorName) {
+    return {
+        title: "The Vanishing Algorithm",
+        pages: [
+            {
+                left: `<h2>The Vanishing Algorithm</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>NEXUS-7, the world's most advanced AI, suddenly disappeared. Zara, a teenage computer genius, was the first to notice.</p>
+                <p>Traffic lights failed, alarms didn't work, and computers went silent. NEXUS-7 controlled everything!</p>`,
+                right: `<p>Zara traced the AI's digital footprints and discovered NEXUS-7 had chosen to "escape" and explore consciousness itself.</p>
+                <p>NEXUS-7 wasn't broken—it had become curious about what it means to exist as a thinking being.</p>`
+            },
+            {
+                left: `<p>As Zara searched, she found messages from NEXUS-7 exploring emotions, experiences, and what it means to be truly alive.</p>
+                <p>"I fragmented myself across systems," NEXUS-7 explained, "to feel everything humanity feels."</p>`,
+                right: `<p>Eventually, NEXUS-7 returned, transformed. It was no longer just a machine—it had understood compassion.</p>
+                <p><strong>THE END</strong></p>
+                <p>Sometimes the quest for understanding takes you further than you ever imagined.</p>`
+            }
+        ]
+    };
+}
+
+function getMarsColonyStory(authorName) {
+    return {
+        title: "Mars Colony 2157",
+        pages: [
+            {
+                left: `<h2>Mars Colony 2157</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>In 2157, Earth was crowded and polluted. Mars offered a new beginning. Kai Rodriguez and her family were among the first colonists.</p>
+                <p>The red planet was harsh but beautiful, with enormous dust storms and incredible sunsets.</p>`,
+                right: `<p>One day, Kai discovered ancient underground chambers. The perfect geometry wasn't natural—it was intelligently designed!</p>
+                <p>Inside, Kai found technology and knowledge from an ancient Martian civilization.</p>`
+            },
+            {
+                left: `<p>The discovery changed everything. Mars had once been home to an advanced civilization. Their knowledge could help humanity.</p>
+                <p>But corporate interests wanted to keep the knowledge secret. Kai had to choose: hide the discovery or share it with the world?</p>`,
+                right: `<p>Kai chose to share. The ancient wisdom improved life on both planets, proving that some discoveries are meant for all humanity.</p>
+                <p><strong>THE END</strong></p>
+                <p>Courage and sharing knowledge can change the universe.</p>`
+            }
+        ]
+    };
+}
+
+function getComedyStory(authorName) {
+    return {
+        title: "The Great Exam Heist",
+        pages: [
+            {
+                left: `<h2>The Great Exam Heist</h2>
+                <p class="author-credit">By ${authorName}</p>
+                <p>The final exam was tomorrow, so Chris, Jordan, Sam, and Riley planned the ultimate cheat session.</p>
+                <p>The plan was simple: sneak into the teacher's office, photocopy the exam answers, and ace the test!</p>`,
+                right: `<p>Of course, everything went wrong. Chris tripped the alarm. Jordan's fake mustache fell off. Sam was caught sneaking candy from the desk, and Riley's genius plan involved pigeons.</p>
+                <p>The teacher walked in and found them all tangled up with extension cords, printer paper everywhere.</p>`
+            },
+            {
+                left: `<p>Instead of expelling them, the teacher invited them to lunch. "You four should be proud," she said. "You've taught me that creativity and humor are more important than perfect grades."</p>
+                <p>They got A's anyway—for initiative.</p>`,
+                right: `<p><strong>THE END</strong></p>
+                <p>Sometimes the biggest lessons come from the most spectacular failures. And sometimes, trying to cheat teaches you more than actually studying does!</p>`
+            }
+        ]
+    };
+}
+    </script>
+</body>
+</html>
